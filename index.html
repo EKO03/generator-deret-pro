@@ -157,6 +157,55 @@ transform:translateY(-5px);
 
 }
 
+.hero-section{
+    padding:20px 0;
+}
+
+.hero-badge{
+    display:inline-block;
+    background:#dbeafe;
+    color:#2563eb;
+    padding:8px 15px;
+    border-radius:999px;
+    font-size:12px;
+    font-weight:700;
+    margin-bottom:15px;
+}
+
+.title{
+    font-size:3rem;
+    font-weight:800;
+    margin-bottom:10px;
+    color:#111827;
+}
+
+.hero-desc{
+    color:#6b7280;
+    font-size:1.1rem;
+    margin-bottom:20px;
+}
+
+.hero-features{
+    display:flex;
+    gap:10px;
+    justify-content:center;
+    flex-wrap:wrap;
+}
+
+.hero-features span{
+    background:#f3f4f6;
+    padding:8px 14px;
+    border-radius:10px;
+    font-size:14px;
+    font-weight:600;
+}
+
+.action-btn{
+    min-width:140px;
+    font-weight:600;
+    border-radius:14px;
+}
+
 </style>
 
 </head>
@@ -173,23 +222,31 @@ transform:translateY(-5px);
 
 <div class="card-body p-4">
 
-<div class="text-center mb-4">
+<div class="hero-section text-center mb-4">
+
+<div class="hero-badge">
+⚡ PROFESSIONAL DASHBOARD
+</div>
 
 <h1 class="title">
-
-GD PRO
-
+Generator Deret Pro
 </h1>
 
-<p class="subtitle">
-
-Professional BigInt Generator
-
+<p class="hero-desc">
+Generate Unlimited Number Sequences Instantly
 </p>
 
-<p class="subtitle">
-BigInt • Excel • PWA • Dark Mode
-</p>
+<div class="hero-features">
+
+<span>🚀 BigInt Ready</span>
+
+<span>📊 Excel Export</span>
+
+<span>📱 PWA Install</span>
+
+<span>🌙 Dark Mode</span>
+
+</div>
 
 </div>
 
@@ -270,31 +327,31 @@ Turun (-)
 <div class="d-flex flex-wrap gap-2">
 
 <button
-class="btn btn-primary"
+class="btn btn-primary action-btn"
 onclick="generate()">
 ⚡ Generate
 </button>
 
 <button
-class="btn btn-success"
+class="btn btn-success action-btn"
 onclick="copyAll()">
 📋 Copy
 </button>
 
 <button
-class="btn btn-warning"
+class="btn btn-warning action-btn"
 onclick="saveExcel()">
 📊 Excel
 </button>
 
 <button
-class="btn btn-danger"
+class="btn btn-danger action-btn"
 onclick="resetData()">
 🗑 Reset
 </button>
 
 <button
-class="btn btn-dark"
+class="btn btn-dark action-btn"
 onclick="toggleDarkMode()">
 🌙 Dark Mode
 </button>
@@ -334,7 +391,9 @@ style="display:none;">
 
 </div>
 
-<h6>Total Data</h6>
+<h6 class="text-muted">
+Total Data
+</h6>
 
 <h3 id="totalData">0</h3>
 
@@ -350,7 +409,9 @@ style="display:none;">
 
 <div class="card-body text-center py-3">
 
-<h6>Angka Pertama</h6>
+<h6 class="text-muted">
+Angka Pertama
+</h6>
 
 <div style="font-size:30px">
 
@@ -370,7 +431,9 @@ style="display:none;">
 
 <div class="card-body text-center py-3">
 
-<h6>Angka Terakhir</h6>
+<h6 class="text-muted">
+Angka Terakhir
+</h6>
 
 <div style="font-size:30px">
 
@@ -394,8 +457,8 @@ style="display:none;">
 
 <input
 id="searchInput"
-class="form-control"
-placeholder="Cari angka">
+class="form-control form-control-lg"
+placeholder="🔍 Cari angka dalam hasil generate">
 
 </div>
 
@@ -508,6 +571,8 @@ document.getElementById(
 
     dataDeret = [];
 
+    let html = "";
+
     for(
         let i = 0;
         i < jumlah;
@@ -547,7 +612,7 @@ document.getElementById(
             angkaString
         );
 
-        tbody.innerHTML += `
+        html += `
         <tr>
             <td>${i+1}</td>
             <td>${angkaString}</td>
@@ -555,6 +620,9 @@ document.getElementById(
         `;
 
     }
+
+   
+}
 
     document.getElementById(
         "totalData"
@@ -576,8 +644,6 @@ document.getElementById(
 document.getElementById(
 "loading"
 ).style.display = "none";
-
-}
 
 function copyAll(){
 
@@ -788,14 +854,19 @@ row.style.backgroundColor=
 
 </script>
 
-<footer
-class="text-center mt-4 text-light">
+<footer class="text-center mt-5 text-light">
 
-Generator Deret Pro v1.1
+<div style="opacity:.8">
 
-<br>
+Generator Deret Pro v2.0
 
-Created by EKO03
+</div>
+
+<small>
+
+Built with by EK03
+
+</small>
 
 </footer>
 
