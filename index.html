@@ -201,9 +201,162 @@ transform:translateY(-5px);
 }
 
 .action-btn{
-    min-width:140px;
+    min-width:120px;
+}
+
+.stat-card{
+    min-height:120px;
+    border-radius:20px;
+}
+
+#totalData{
+    font-size:32px;
+}
+
+#angkaPertama,
+#angkaTerakhir{
+
+    font-size:16px;
+
+    word-break:break-all;
+
+}
+
+.mini-stat{
+
+    padding:15px;
+
+    border-radius:18px;
+
+    text-align:center;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.15);
+
+    min-height:100px;
+
+}
+
+.mini-stat h5,
+.mini-stat h6{
+
+    margin-top:8px;
+
+    margin-bottom:0;
+
+    word-break:break-all;
+
+    font-size:14px;
+
+}
+
+.mini-stat small{
+
+    opacity:.9;
+
+}
+
+.fade-in{
+
+    animation:
+    fadeIn .4s ease;
+
+}
+
+.dark-mode .mini-stat{
+
+    box-shadow:
+    0 0 20px
+    rgba(
+        255,
+        255,
+        255,
+        .08
+    );
+
+}
+
+.dark-mode .hero-features span{
+
+    background:#2b2b2b;
+
+    color:white;
+
+}
+
+.search-sticky{
+
+    position:sticky;
+
+    top:10px;
+
+    z-index:999;
+
+    background:white;
+
+    padding:10px;
+
+    border-radius:15px;
+
+}
+
+.toast-notif{
+
+    position:fixed;
+
+    top:20px;
+
+    right:20px;
+
+    background:#198754;
+
+    color:white;
+
+    padding:15px 25px;
+
+    border-radius:15px;
+
     font-weight:600;
-    border-radius:14px;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.2);
+
+    z-index:99999;
+
+    opacity:0;
+
+    transform:translateY(-20px);
+
+    transition:.3s;
+
+}
+
+.toast-show{
+
+    opacity:1;
+
+    transform:translateY(0);
+
+}
+
+@keyframes fadeIn{
+
+    from{
+
+        opacity:0;
+
+        transform:
+        translateY(10px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:
+        translateY(0);
+
+    }
+
 }
 
 </style>
@@ -229,11 +382,11 @@ transform:translateY(-5px);
 </div>
 
 <h1 class="title">
-Generator Deret Pro
+🚀 Generator Deret Pro
 </h1>
 
 <p class="hero-desc">
-Generate Unlimited Number Sequences Instantly
+Generate angka tanpa batas, copy instan, export Excel dan siap digunakan di semua perangkat.
 </p>
 
 <div class="hero-features">
@@ -364,6 +517,12 @@ class="btn btn-success">
 
 </button>
 
+<div class="d-flex gap-2 mt-2">
+
+</button>
+
+</div>
+
 <div
 id="loading"
 class="mt-3 text-primary"
@@ -377,68 +536,51 @@ style="display:none;">
 
 <hr>
 
-<div class="row">
+<div class="row mt-4 g-2">
 
-<div class="col-md-4">
+    <div class="col-4">
 
-<div class="card stat-card border-0 shadow">
+        <div class="mini-stat bg-primary text-white">
 
-<div class="card-body text-center">
+            <div>📊</div>
 
-<div style="font-size:30px">
+            <small>Total</small>
 
-📊
+            <h5 id="totalData">0</h5>
 
-</div>
+        </div>
 
-<h6 class="text-muted">
-Total Data
-</h6>
+    </div>
 
-<h3 id="totalData">0</h3>
+    <div class="col-4">
 
-</div>
+        <div class="mini-stat bg-success text-white">
 
-</div>
+            <div>🔢</div>
 
-</div>
+            <small>Awal</small>
 
-<div class="col-md-4">
+            <h6 id="angkaPertama">-</h6>
 
-<div class="card stat-card bg-success text-white">
+        </div>
 
-<div class="card-body text-center py-3">
+    </div>
 
-<h6 class="text-muted">
-Angka Pertama
-</h6>
+    <div class="col-4">
 
-<div style="font-size:30px">
+        <div class="mini-stat bg-warning">
 
-🔢
+            <div>🏁</div>
 
-</div>
+            <small>Akhir</small>
 
-</div>
+            <h6 id="angkaTerakhir">-</h6>
 
-</div>
+        </div>
+
+    </div>
 
 </div>
-
-<div class="col-md-4">
-
-<div class="card stat-card bg-warning">
-
-<div class="card-body text-center py-3">
-
-<h6 class="text-muted">
-Angka Terakhir
-</h6>
-
-<div style="font-size:30px">
-
-🏁
-
 </div>
 
 </div>
@@ -451,7 +593,8 @@ Angka Terakhir
 
 <div class="table-container mt-4">
 
-<div class="row mt-3">
+<div
+class="row mt-3 search-sticky">
 
 <div class="col-md-8">
 
@@ -476,9 +619,48 @@ onclick="searchData()">
 
 </div>
 
+<div
+id="searchResult"
+class="alert alert-success mt-3"
+style="display:none;">
+
+🔍 Hasil:
+<span id="hasilPosisi">
+
+-
+
+</span>
+
+<button
+class="btn btn-sm btn-secondary ms-2"
+onclick="prevResult()">
+
+⬅
+
+</button>
+
+<button
+class="btn btn-sm btn-primary"
+onclick="nextResult()">
+
+➡
+
+</button>
+
+</div>
+
+<div
+id="previewInfo"
+class="alert alert-info mt-3">
+
+Menampilkan preview data
+
+</div>
+
 <table
 id="tabelHasil"
-class="table table-striped table-bordered">
+class="table table-striped table-bordered fade-in"
+>
 
 <thead class="table-dark">
 
@@ -498,6 +680,32 @@ class="table table-striped table-bordered">
 
 </table>
 
+<div class="d-flex justify-content-center align-items-center gap-3 mt-3">
+
+<button
+class="btn btn-secondary"
+onclick="prevPage()">
+
+⬅ Sebelumnya
+
+</button>
+
+<span id="pageInfo">
+
+Halaman 1
+
+</span>
+
+<button
+class="btn btn-primary"
+onclick="nextPage()">
+
+Berikutnya ➡
+
+</button>
+
+</div>
+
 </div>
 
 </div>
@@ -514,11 +722,17 @@ class="table table-striped table-bordered">
 
 let dataDeret = [];
 
+let currentPage = 1;
+
+let rowsPerPage = 500;
+
+let hasilPencarian = [];
+
+let hasilIndex = 0;
+
 function generate(){
 
-document.getElementById(
-"loading"
-).style.display = "block";
+    document.getElementById("loading").style.display = "block";
 
     let awalInput =
     document.getElementById("awal").value.trim();
@@ -539,39 +753,19 @@ document.getElementById(
         !kelipatanInput ||
         !jumlah
     ){
-        alert(
-            "Lengkapi semua input"
-        );
+        alert("Lengkapi semua input");
         return;
     }
 
     if(jumlah > 100000){
-
-        alert(
-            "Maksimal 100.000 data"
-        );
-
+        alert("Maksimal 100.000 data");
         return;
     }
 
-    let awal = BigInt(
-        awalInput
-    );
-
-    let kelipatan = BigInt(
-        kelipatanInput
-    );
-
-    let tbody =
-    document.querySelector(
-        "#tabelHasil tbody"
-    );
-
-    tbody.innerHTML = "";
+    let awal = BigInt(awalInput);
+    let kelipatan = BigInt(kelipatanInput);
 
     dataDeret = [];
-
-    let html = "";
 
     for(
         let i = 0;
@@ -581,9 +775,7 @@ document.getElementById(
 
         let angka;
 
-        if(
-            arah === "naik"
-        ){
+        if(arah === "naik"){
 
             angka =
             awal +
@@ -605,96 +797,364 @@ document.getElementById(
 
         }
 
-        let angkaString =
-        angka.toString();
-
         dataDeret.push(
-            angkaString
+            angka.toString()
         );
+
+    }
+
+    document.getElementById(
+    "totalData"
+    ).textContent =
+    dataDeret.length;
+
+    document.getElementById(
+    "angkaPertama"
+    ).textContent =
+    dataDeret[0];
+
+    document.getElementById(
+    "angkaTerakhir"
+    ).textContent =
+    dataDeret[
+    dataDeret.length - 1
+    ];
+
+    document.getElementById(
+    "previewInfo"
+    ).innerHTML =
+
+    `📄 Menampilkan ${
+    Math.min(
+    dataDeret.length,
+    rowsPerPage
+    )
+    } dari ${
+    dataDeret.length
+    } data.`;
+
+    currentPage = 1;
+
+    renderPage();
+
+    document.getElementById(
+    "loading"
+    ).style.display =
+    "none";
+
+}
+
+function renderPage(){
+
+    let tbody =
+    document.querySelector(
+    "#tabelHasil tbody"
+    );
+
+    tbody.innerHTML = "";
+
+    let start =
+    (currentPage - 1)
+    * rowsPerPage;
+
+    let end =
+    start + rowsPerPage;
+
+    let html = "";
+
+    for(
+        let i = start;
+        i < end &&
+        i < dataDeret.length;
+        i++
+    ){
 
         html += `
         <tr>
             <td>${i+1}</td>
-            <td>${angkaString}</td>
+            <td>${dataDeret[i]}</td>
         </tr>
         `;
 
     }
 
-   
+    tbody.innerHTML = html;
+
+    let totalPage =
+    Math.ceil(
+    dataDeret.length /
+    rowsPerPage
+    );
+
+    document.getElementById(
+    "pageInfo"
+    ).textContent =
+    `Halaman ${currentPage} / ${totalPage}`;
+
 }
 
-    document.getElementById(
-        "totalData"
-    ).textContent =
-    dataDeret.length;
+function nextPage(){
 
-    document.getElementById(
-        "angkaPertama"
-    ).textContent =
-    dataDeret[0];
+    let totalPage =
+    Math.ceil(
+    dataDeret.length /
+    rowsPerPage
+    );
 
+    if(
+        currentPage <
+        totalPage
+    ){
+
+        currentPage++;
+
+        renderPage();
+
+    }
+
+}
+
+function prevPage(){
+
+    if(
+        currentPage > 1
+    ){
+
+        currentPage--;
+
+        renderPage();
+
+    }
+
+}
+
+function searchData(){
+
+    let keyword =
     document.getElementById(
-        "angkaTerakhir"
-    ).textContent =
-    dataDeret[
-        dataDeret.length - 1
+    "searchInput"
+    ).value.trim();
+
+    if(
+        keyword === ""
+    ){
+
+        alert(
+        "Masukkan angka yang dicari"
+        );
+
+        return;
+
+    }
+
+    hasilPencarian = [];
+
+    dataDeret.forEach(
+        (
+            item,
+            index
+        )=>{
+
+            if(
+                item.includes(
+                keyword
+                )
+            ){
+
+                hasilPencarian.push(
+                    index
+                );
+
+            }
+
+        }
+    );
+
+    if(
+        hasilPencarian.length === 0
+    ){
+
+        alert(
+        "Data tidak ditemukan"
+        );
+
+        document.getElementById(
+        "searchResult"
+        ).style.display =
+        "none";
+
+        return;
+
+    }
+
+    hasilIndex = 0;
+
+    tampilkanHasil();
+
+}
+
+function tampilkanHasil(){
+
+    let index =
+    hasilPencarian[
+        hasilIndex
     ];
 
-document.getElementById(
-"loading"
-).style.display = "none";
+    currentPage =
+    Math.floor(
+        index /
+        rowsPerPage
+    ) + 1;
+
+    renderPage();
+
+    document.getElementById(
+    "searchResult"
+    ).style.display =
+    "block";
+
+    document.getElementById(
+    "hasilPosisi"
+    ).innerHTML =
+
+    `${hasilIndex + 1}
+    dari
+    ${hasilPencarian.length}`;
+
+    setTimeout(()=>{
+
+        let rows =
+        document.querySelectorAll(
+        "#tabelHasil tbody tr"
+        );
+
+        let posisi =
+        index %
+        rowsPerPage;
+
+        if(
+            rows[posisi]
+        ){
+
+            rows.forEach(
+                row=>{
+
+                    row.style.background =
+                    "";
+
+                    row.style.fontWeight =
+                    "normal";
+
+                }
+            );
+
+            rows[posisi]
+            .style.background =
+            "#fff3cd";
+
+            rows[posisi]
+            .style.fontWeight =
+            "bold";
+
+            rows[posisi]
+            .scrollIntoView({
+
+                behavior:"smooth",
+
+                block:"center"
+
+            });
+
+        }
+
+    },100);
+
+}
+
+function nextResult(){
+
+    if(
+        hasilPencarian.length === 0
+    ) return;
+
+    hasilIndex++;
+
+    if(
+        hasilIndex >=
+        hasilPencarian.length
+    ){
+
+        hasilIndex = 0;
+
+    }
+
+    tampilkanHasil();
+
+}
+
+function prevResult(){
+
+    if(
+        hasilPencarian.length === 0
+    ) return;
+
+    hasilIndex--;
+
+    if(
+        hasilIndex < 0
+    ){
+
+        hasilIndex =
+        hasilPencarian.length - 1;
+
+    }
+
+    tampilkanHasil();
+
+}
 
 function copyAll(){
 
     if(
-        dataDeret.length === 0
+    dataDeret.length === 0
     ){
-        alert(
-            "Generate dahulu"
-        );
+        alert("Generate dahulu");
         return;
     }
 
     navigator.clipboard.writeText(
-        dataDeret.join("\n")
+    dataDeret.join("\n")
     );
 
-    alert(
-        "Berhasil dicopy"
-    );
+    alert("Berhasil dicopy");
 
 }
 
 function resetData(){
 
-    document.getElementById(
-        "awal"
-    ).value = "";
-
-    document.getElementById(
-        "kelipatan"
-    ).value = "";
-
-    document.getElementById(
-        "jumlah"
-    ).value = "";
+    document.getElementById("awal").value = "";
+    document.getElementById("kelipatan").value = "";
+    document.getElementById("jumlah").value = "";
 
     document.querySelector(
-        "#tabelHasil tbody"
+    "#tabelHasil tbody"
     ).innerHTML = "";
 
     document.getElementById(
-        "totalData"
+    "totalData"
     ).textContent = 0;
 
     document.getElementById(
-        "angkaPertama"
+    "angkaPertama"
     ).textContent = "-";
 
     document.getElementById(
-        "angkaTerakhir"
+    "angkaTerakhir"
     ).textContent = "-";
+
+    document.getElementById(
+    "pageInfo"
+    ).textContent = "Halaman 1";
 
     dataDeret = [];
 
@@ -703,46 +1163,40 @@ function resetData(){
 function saveExcel(){
 
     if(
-        dataDeret.length === 0
+    dataDeret.length === 0
     ){
-        alert(
-            "Generate dahulu"
-        );
+        alert("Generate dahulu");
         return;
     }
 
     let excelData =
     dataDeret.map(
-        (
-            angka,
-            index
-        )=>({
+    (angka,index)=>({
 
-            No:index+1,
+        No:index+1,
 
-            Angka:
-            "'" + angka
+        Angka:"'" + angka
 
-        })
+    })
     );
 
     let ws =
     XLSX.utils.json_to_sheet(
-        excelData
+    excelData
     );
 
     let wb =
     XLSX.utils.book_new();
 
     XLSX.utils.book_append_sheet(
-        wb,
-        ws,
-        "Deret"
+    wb,
+    ws,
+    "Deret"
     );
 
     XLSX.writeFile(
-        wb,
-        "Deret_Angka.xlsx"
+    wb,
+    "Deret_Angka.xlsx"
     );
 
 }
@@ -750,39 +1204,24 @@ function saveExcel(){
 function toggleDarkMode(){
 
     document.body.classList.toggle(
-        "dark-mode"
+    "dark-mode"
     );
 
 }
 
-document.getElementById(
-"installBtn"
-).addEventListener(
-"click",
-async ()=>{
-
-    if(
-        !deferredPrompt
-    ) return;
-
-    deferredPrompt.prompt();
-
-    deferredPrompt = null;
-
-});
-
 let deferredPrompt;
 
 window.addEventListener(
-'beforeinstallprompt',
+"beforeinstallprompt",
 (event)=>{
 
     event.preventDefault();
 
-    deferredPrompt = event;
+    deferredPrompt =
+    event;
 
     document.getElementById(
-        "installBtn"
+    "installBtn"
     ).style.display =
     "inline-block";
 
@@ -795,80 +1234,77 @@ document.getElementById(
 async()=>{
 
     if(
-        deferredPrompt
+    deferredPrompt
     ){
 
         deferredPrompt.prompt();
-
-    }else{
-
-        alert(
-        "Untuk Android:\n\nKlik ⋮ lalu 'Tambahkan ke layar utama'"
-        );
 
     }
 
 });
 
 if(
-    'serviceWorker'
-    in navigator
+'serviceWorker'
+in navigator
 ){
 
     navigator.serviceWorker.register(
-        'service-worker.js'
+    'service-worker.js'
     );
 
 }
 
-function searchData(){
+function showToast(msg){
 
-let keyword =
-document.getElementById(
-"searchInput"
-).value.trim();
+    let toast =
+    document.getElementById(
+    "toastNotif"
+    );
 
-let rows =
-document.querySelectorAll(
-"#tabelHasil tbody tr"
-);
+    toast.innerHTML =
+    msg;
 
-rows.forEach(row=>{
+    toast.classList.add(
+    "toast-show"
+    );
 
-row.style.backgroundColor="";
+    setTimeout(()=>{
 
-if(
-row.innerText.includes(
-keyword
-)
-){
-row.style.backgroundColor=
-"#fff3cd";
-}
+        toast.classList.remove(
+        "toast-show"
+        );
 
-});
+    },3000);
 
 }
 
 </script>
 
-</script>
 
-<footer class="text-center mt-5 text-light">
+<footer
+class="text-center mt-5">
 
-<div style="opacity:.8">
+<hr>
 
-Generator Deret Pro v2.0
+<p class="text-secondary">
 
-</div>
+Generator Deret Pro v2.1
 
-<small>
+</p>
 
-Built with by EK03
+<small class="text-secondary">
+
+© 2026 EK03 Studio
 
 </small>
 
 </footer>
+
+<div
+id="toastNotif"
+class="toast-notif">
+
+</div>
 
 </body>
 
