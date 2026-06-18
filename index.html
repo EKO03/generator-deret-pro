@@ -17,20 +17,56 @@
 <style>
 
 body{
-    background: linear-gradient(135deg,#0f172a,#1e293b,#334155);
+    background:
+    linear-gradient(
+        135deg,
+        #0f172a,
+        #1e1b4b,
+        #312e81
+    );
+
     min-height:100vh;
+
     padding:20px;
 }
 
 .main-card{
+
     border:none;
-    border-radius:25px;
-    box-shadow:0 10px 30px rgba(0,0,0,0.25);
+
+    border-radius:30px;
+
+    backdrop-filter:blur(10px);
+
+    background:
+    rgba(
+        255,
+        255,
+        255,
+        0.95
+    );
+
+    box-shadow:
+    0 20px 40px
+    rgba(
+        0,
+        0,
+        0,
+        0.2
+    );
+
 }
 
 .title{
-    font-weight:700;
-    font-size:2rem;
+    font-weight:80;
+    font-size: 2.5rem;
+    background:linear-gradient(
+        90deg,
+        #2563eb,
+        #7c3aed
+    );
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
 }
 
 .subtitle{
@@ -71,6 +107,56 @@ body{
     color:white;
 }
 
+.btn{
+    border-radius:15px;
+    padding:10px 20px;
+    font-weight:600;
+}
+
+.card{
+
+transition:0.3s;
+
+}
+
+.card:hover{
+
+transform:translateY(-5px);
+
+}
+
+.btn{
+
+    border-radius:15px;
+
+    font-weight:600;
+
+    transition:0.3s;
+
+}
+
+.btn:hover{
+
+    transform:
+    translateY(-2px);
+
+}
+
+.stat-card{
+
+    border-radius:20px;
+
+    box-shadow:
+    0 5px 15px
+    rgba(
+        0,
+        0,
+        0,
+        0.1
+    );
+
+}
+
 </style>
 
 </head>
@@ -90,8 +176,16 @@ body{
 <div class="text-center mb-4">
 
 <h1 class="title">
-🔢 Generator Deret Pro
+
+GD PRO
+
 </h1>
+
+<p class="subtitle">
+
+Professional BigInt Generator
+
+</p>
 
 <p class="subtitle">
 BigInt • Excel • PWA • Dark Mode
@@ -178,25 +272,25 @@ Turun (-)
 <button
 class="btn btn-primary"
 onclick="generate()">
-Generate
+⚡ Generate
 </button>
 
 <button
 class="btn btn-success"
 onclick="copyAll()">
-Copy All
+📋 Copy
 </button>
 
 <button
 class="btn btn-warning"
 onclick="saveExcel()">
-Save Excel
+📊 Excel
 </button>
 
 <button
 class="btn btn-danger"
 onclick="resetData()">
-Reset
+🗑 Reset
 </button>
 
 <button
@@ -207,9 +301,10 @@ onclick="toggleDarkMode()">
 
 <button
 id="installBtn"
-class="btn btn-success"
-style="display:none;">
+class="btn btn-success">
+
 📱 Install App
+
 </button>
 
 <div
@@ -229,13 +324,19 @@ style="display:none;">
 
 <div class="col-md-4">
 
-<div class="card stat-card bg-primary text-white">
+<div class="card stat-card border-0 shadow">
 
-<div class="card-body text-center py-3">
+<div class="card-body text-center">
+
+<div style="font-size:30px">
+
+📊
+
+</div>
 
 <h6>Total Data</h6>
 
-<h4 id="totalData">0</h4>
+<h3 id="totalData">0</h3>
 
 </div>
 
@@ -251,7 +352,11 @@ style="display:none;">
 
 <h6>Angka Pertama</h6>
 
-<small id="angkaPertama">-</small>
+<div style="font-size:30px">
+
+🔢
+
+</div>
 
 </div>
 
@@ -267,7 +372,11 @@ style="display:none;">
 
 <h6>Angka Terakhir</h6>
 
-<small id="angkaTerakhir">-</small>
+<div style="font-size:30px">
+
+🏁
+
+</div>
 
 </div>
 
@@ -278,6 +387,31 @@ style="display:none;">
 </div>
 
 <div class="table-container mt-4">
+
+<div class="row mt-3">
+
+<div class="col-md-8">
+
+<input
+id="searchInput"
+class="form-control"
+placeholder="Cari angka">
+
+</div>
+
+<div class="col-md-4">
+
+<button
+class="btn btn-info w-100"
+onclick="searchData()">
+
+🔍 Cari
+
+</button>
+
+</div>
+
+</div>
 
 <table
 id="tabelHasil"
@@ -583,7 +717,8 @@ window.addEventListener(
 
     document.getElementById(
         "installBtn"
-    ).style.display = "inline-block";
+    ).style.display =
+    "inline-block";
 
 });
 
@@ -593,11 +728,19 @@ document.getElementById(
 "click",
 async()=>{
 
-    if(!deferredPrompt) return;
+    if(
+        deferredPrompt
+    ){
 
-    deferredPrompt.prompt();
+        deferredPrompt.prompt();
 
-    deferredPrompt = null;
+    }else{
+
+        alert(
+        "Untuk Android:\n\nKlik ⋮ lalu 'Tambahkan ke layar utama'"
+        );
+
+    }
 
 });
 
@@ -612,9 +755,49 @@ if(
 
 }
 
+function searchData(){
+
+let keyword =
+document.getElementById(
+"searchInput"
+).value.trim();
+
+let rows =
+document.querySelectorAll(
+"#tabelHasil tbody tr"
+);
+
+rows.forEach(row=>{
+
+row.style.backgroundColor="";
+
+if(
+row.innerText.includes(
+keyword
+)
+){
+row.style.backgroundColor=
+"#fff3cd";
+}
+
+});
+
+}
+
 </script>
 
 </script>
+
+<footer
+class="text-center mt-4 text-light">
+
+Generator Deret Pro v1.1
+
+<br>
+
+Created by EKO03
+
+</footer>
 
 </body>
 
